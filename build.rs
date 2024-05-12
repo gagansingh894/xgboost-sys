@@ -22,11 +22,7 @@ fn main() {
     }
 
     // CMake
-    let mut cmake_config = Config::new(&xgb_root);
-    if is_macos() {
-        cmake_config.define("USE_OPENMP", "OFF");
-    }
-    let dst = cmake_config
+    let dst = Config::new(&xgb_root)
         .uses_cxx11()
         .define("BUILD_STATIC_LIB", "ON")
         .build();
@@ -62,9 +58,4 @@ fn main() {
         println!("cargo:rustc-link-lib=dylib=stdc++");
         println!("cargo:rustc-link-lib=dylib=gomp");
     }
-}
-
-#[cfg(target_os = "macos")]
-fn is_macos() -> bool {
-    true
 }
